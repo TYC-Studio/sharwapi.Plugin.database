@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
+      <PackageReference Include="Dapper" Version="2.1.66" />
       <PackageReference Include="Microsoft.Data.SqlClient" Version="6.1.4" />
     </ItemGroup>
     <ItemGroup>
@@ -7,7 +8,7 @@
     </ItemGroup>
     
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
+        <OutputType>Library</OutputType>
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>

@@ -15,36 +15,46 @@ public class DatabasePlugin : IApiPlugin
     //di config
     public void RegisterServices(IServiceCollection services, IConfiguration configuration)
     {
+        /*services.AddSingleton<IDatabaseContext>(serviceProvider =>
+        {
+            return new DatabaseContext
+            {
+                ConnectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new ArgumentException("DefaultConnection is required to be configured."),
+                DatabaseType = configuration.GetValue<string>($"{DatabaseContext.SectionName}:DatabaseType") ?? throw new ArgumentException("DatabaseType is required to be configured."),
+                CommandTimeout = configuration.GetValue<int>($"{DatabaseContext.SectionName}:CommandTimeout"),
+                UseTransaction = configuration.GetValue<bool>($"{DatabaseContext.SectionName}:UseTransaction"),
+            };
+        });   仅供演示，用户需像这样注册一个IDatabaseContext */
+        
         services.AddSingleton<IDatabaseServiceFactory, DatabaseServiceFactory>();
 
         services.AddOptions<DatabasePluginOptions>()
             .Bind(configuration.GetSection(DatabasePluginOptions.SectionName));
             //.ValidateDataAnnotations();
+        
         services.AddScoped<IDatabaseService>(serviceProvider =>
         {
-            var contextAccessor = serviceProvider.GetService<IDatabaseContextAccessor>();
-            var context = contextAccessor?.GetContext();
-
-            if (context == null)
-            {
-                throw new InvalidOperationException(
-                    "Database context is not set for current scope. " +
-                    "Please set context using IDatabaseContextAccessor.SetContext()");
-            }
-
+            var context = serviceProvider.GetService<DatabaseContext>() ?? throw new ArgumentException("DatabaseContext is required to be registered.");
             var factory = serviceProvider.GetRequiredService<IDatabaseServiceFactory>();
+            
             return factory.CreateService(context);
         });
     }
+    
     //middleware
     public void Configure(WebApplication app) { }
+    
     //route config for web
     public void RegisterRoutes(IEndpointRouteBuilder app, IConfiguration configuration)
     {
-        if (configuration.GetValue<bool>($"{DatabasePluginOptions.SectionName}:ExposePluginWebApi") == true)
+        if (configuration.GetValue<bool>($"{DatabasePluginOptions.SectionName}:ExposePluginWebApi"))
         {
             //TODO: plugin api expose
-            //var pluggroup = app.MapGroup("/plugin").WithTags("DBPluginApi");
+            var group = app.MapGroup($"/{Name}");
+            group.MapGet("/test", async (IDatabaseService dbService) =>
+            {
+                return await dbService.TestConnectionAsync();
+            });
         }
     }
 }

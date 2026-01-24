@@ -2,16 +2,12 @@
 
 namespace sharwapi.Plugin.database;
 
-public interface IDatabaseContextAccessor
-{
-    DatabaseContext? GetContext();
-    DatabaseContext SetContext(object context);
-}
 public interface IDatabaseServiceFactory
 {
     IDatabaseService CreateService(DatabaseContext context);
     IDatabaseService CreateService(string connectionString);
 }
+
 public class DatabaseServiceFactory : IDatabaseServiceFactory
 {
     private readonly ILoggerFactory _loggerFactory;

@@ -35,7 +35,7 @@ public class DatabaseService : IDatabaseService, IDisposable
         }
 
         _connection = new SqlConnection(_context.ConnectionString);
-        _logger.LogDebug("DatabaseService created");
+        _logger.LogDebug("DatabaseService created.");
     }
 
     public async Task<bool> TestConnectionAsync()

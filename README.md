@@ -1,12 +1,12 @@
 # Database Plugin
 
-一个为插件化Web API框架设计的数据库服务插件，提供灵活、可配置的数据库访问能力。
+一个为[SharwAPI](https://github.com/sharwapi)设计的数据库服务插件，提供灵活、可配置的数据库访问能力。
 
 ### 安装与配置
 
 1. 把插件文件（一般为`sharwapi.Plugin.database.dll`）放入SharwApi框架运行目录的`/Plugins`文件夹下即可。
 2. 在`appsettings.json`中添加`DatabasePlugin`字典：
-- `ExposePluginWebApi` : 布尔值，决定插件是否暴露插件的网络Api（功能尚在开发）
+- `ExposePluginWebApi` : 布尔值，决定插件是否暴露插件的网络Api，WIP（功能尚在开发）
 
 ## 使用示例
 
@@ -70,7 +70,7 @@ app.Run();
 
 ## API端点
 
-...仍在开发...
+...WIP...（功能尚在开发）
 
 
 ## 依赖要求

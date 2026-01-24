@@ -1,6 +1,6 @@
 # Database Plugin
 
-一个为(SharwAPI)[https://github.com/sharwapi]设计的数据库服务插件，提供灵活、可配置的数据库访问能力。
+一个为[SharwAPI](https://github.com/sharwapi)设计的数据库服务插件，提供灵活、可配置的数据库访问能力。
 
 ### 安装与配置
 

@@ -1,9 +1,7 @@
 ﻿using Azure;
 using Dapper;
 using Microsoft.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace sharwapi.Plugin.database;
 

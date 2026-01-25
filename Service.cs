@@ -1,4 +1,5 @@
-﻿using Dapper;
+﻿using Azure;
+using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
@@ -50,7 +51,7 @@ public class DatabaseService : IDatabaseService, IDisposable
         catch (Exception ex)
         {
             _logger.LogError(ex, "Database connection test failed");
-            return false;
+            throw new RequestFailedException(ex.Message, ex);
         }
     }
 

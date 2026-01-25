@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,7 +26,7 @@ public class DatabasePlugin : IApiPlugin
                 UseTransaction = configuration.GetValue<bool>($"{DatabaseContext.SectionName}:UseTransaction"),
             };
         });   仅供演示，用户需像这样注册一个IDatabaseContext */
-        
+
         services.AddSingleton<IDatabaseServiceFactory, DatabaseServiceFactory>();
 
         services.AddOptions<DatabasePluginOptions>()
@@ -53,7 +54,19 @@ public class DatabasePlugin : IApiPlugin
             var group = app.MapGroup($"/{Name}");
             group.MapGet("/test", async (IDatabaseService dbService) =>
             {
-                return await dbService.TestConnectionAsync();
+                try {
+                    await dbService.TestConnectionAsync();
+                    return Results.Ok(new { 
+                        success = true, 
+                        message = "连接测试成功！"
+                    });
+                } catch (Exception ex) {
+                    return Results.Problem(
+                        title: "数据库连接失败！",
+                        statusCode: 500,
+                        detail: ex.ToString()
+                    );
+                }
             });
         }
     }

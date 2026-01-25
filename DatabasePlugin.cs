@@ -5,7 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using sharwapi.Contracts.Core;
 
-namespace sharwapi.Plugin.database;
+namespace Tyc_studio.Plugin.Database;
 
 public class DatabasePlugin : IApiPlugin
 {

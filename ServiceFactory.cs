@@ -1,6 +1,6 @@
 ﻿using Microsoft.Extensions.Logging;
 
-namespace sharwapi.Plugin.database;
+namespace Tyc_studio.Plugin.Database;
 
 public interface IDatabaseServiceFactory
 {

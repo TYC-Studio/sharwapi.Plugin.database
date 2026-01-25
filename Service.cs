@@ -3,7 +3,7 @@ using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Logging;
 
-namespace sharwapi.Plugin.database;
+namespace Tyc_studio.Plugin.Database;
 
 public interface IDatabaseService
 {
